@@ -54,7 +54,7 @@ function Home() {
         <main className="py-4">
           <header className="flex items-center justify-end gap-x-4">
             <span className="max-h-6 px-1.5 bg-sky-600 text-white font-bold rounded-lg flex items-center justify-center">
-              {data.length}
+              {results?.length || 0}
             </span>
             <input
               type="text"
