@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import type { Podcast } from "../types";
 
-const useGetPodcasts = <T>() => {
-  const [data, setData] = useState<T | null>(null);
+const useGetPodcasts = () => {
+  const [data, setData] = useState<Podcast[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
