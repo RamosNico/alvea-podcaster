@@ -38,7 +38,7 @@ function Home() {
             />
           </header>
 
-          <section className="py-16 grid grid-cols-4 gap-x-6 gap-y-32">
+          <section className="py-16 grid max-sm:justify-center max-sm:gap-y-16 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-32">
             {data.map((podcast) => (
               <PodcastCard
                 key={podcast.id}
