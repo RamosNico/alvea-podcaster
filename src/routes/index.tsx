@@ -1,13 +1,40 @@
 import { createFileRoute } from "@tanstack/react-router";
 import useGetPodcasts from "../utils/useGetPodcasts";
 import PodcastCard from "../components/podcast-card";
+import { useMemo, useState } from "react";
 
 export const Route = createFileRoute("/")({
   component: Home,
 });
 
 function Home() {
+  let params = new URLSearchParams(document.location.search);
+  const [filter, setFilter] = useState(params.get("filter") || "");
   const { data, isLoading, error } = useGetPodcasts();
+
+  const results = useMemo(() => {
+    if (!filter.trim()) {
+      return data;
+    }
+
+    const normalizedFilter = filter.trim().toLowerCase();
+    return data?.filter((d) => d.name.toLowerCase().includes(normalizedFilter));
+  }, [data, filter]);
+
+  const handleFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newFilter = e.target.value;
+    setFilter(newFilter);
+
+    const params = new URLSearchParams(window.location.search);
+    if (newFilter) {
+      params.set("filter", newFilter);
+      // Update the URL in the browser without reloading the page
+      window.history.pushState({}, '', `${window.location.pathname}?${params.toString()}`);
+    } else {
+      params.delete("filter");
+      window.history.pushState({}, '', `${window.location.pathname}`);
+  }
+};
 
   return (
     <div className="container mx-auto">
@@ -32,6 +59,8 @@ function Home() {
             <input
               type="text"
               id="filter"
+              value={filter}
+              onChange={handleFilter}
               className="w-full max-w-xs px-2.5 py-2 border border-gray-300 text-slate-900 text-sm rounded-md focus:ring-sky-500 focus:border-sky-500"
               placeholder="Filter podcasts..."
               required
@@ -39,7 +68,7 @@ function Home() {
           </header>
 
           <section className="py-16 grid max-sm:justify-center max-sm:gap-y-16 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-32">
-            {data.map((podcast) => (
+            {results?.map((podcast) => (
               <PodcastCard
                 key={podcast.id}
                 id={podcast.id}
