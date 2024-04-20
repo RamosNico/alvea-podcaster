@@ -6,7 +6,7 @@ export const Route = createRootRoute({
     <>
       <div className="p-2 flex gap-2">
         <nav className='container mx-auto'>
-          <Link to="/" className="[&.active]:font-bold">
+          <Link to="/" className="font-medium text-lg">
             Podcaster
           </Link>
         </nav>
