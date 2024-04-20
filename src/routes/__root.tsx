@@ -5,9 +5,11 @@ export const Route = createRootRoute({
   component: () => (
     <>
       <div className="p-2 flex gap-2">
-        <Link to="/" className="[&.active]:font-bold">
-          Podcaster
-        </Link>
+        <nav className='container mx-auto'>
+          <Link to="/" className="[&.active]:font-bold">
+            Podcaster
+          </Link>
+        </nav>
       </div>
       <hr />
       <Outlet />
