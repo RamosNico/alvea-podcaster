@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import useGetPodcasts from "../utils/useGetPodcasts";
+import PodcastCard from "../components/podcast-card";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -31,11 +32,23 @@ function Home() {
             <input
               type="text"
               id="filter"
-              className="w-full max-w-xs px-2.5 py-2 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-sky-500 focus:border-sky-500"
+              className="w-full max-w-xs px-2.5 py-2 border border-gray-300 text-slate-900 text-sm rounded-md focus:ring-sky-500 focus:border-sky-500"
               placeholder="Filter podcasts..."
               required
             />
           </header>
+
+          <section className="py-16 grid grid-cols-4 gap-x-6 gap-y-32">
+            {data.map((podcast) => (
+              <PodcastCard
+                key={podcast.id}
+                id={podcast.id}
+                name={podcast.name}
+                artist={podcast.artist}
+                image={podcast.image}
+              />
+            ))}
+          </section>
         </main>
       )}
     </div>
