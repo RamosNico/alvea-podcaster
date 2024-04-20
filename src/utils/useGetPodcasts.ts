@@ -22,7 +22,8 @@ const useGetPodcasts = () => {
         id: d.id.attributes["im:id"],
         artist: d["im:artist"].label,
         name: d.title.label,
-        image: d["im:image"][d["im:image"].length - 1].label,
+        // Use the latest image of the array as it seems to always be the highest quality
+        image: d["im:image"][d["im:image"].length - 1].label
       }));
 
       setData(podcasts);
