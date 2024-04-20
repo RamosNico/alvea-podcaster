@@ -23,7 +23,20 @@ function Home() {
       )}
 
       {!isLoading && data && (
-        <h1>Loaded</h1>
+        <main className="py-4">
+          <header className="flex items-center justify-end gap-x-4">
+            <span className="max-h-6 px-1.5 bg-sky-600 text-white font-bold rounded-lg flex items-center justify-center">
+              {data.length}
+            </span>
+            <input
+              type="text"
+              id="filter"
+              className="w-full max-w-xs px-2.5 py-2 border border-gray-300 text-gray-900 text-sm rounded-md focus:ring-sky-500 focus:border-sky-500"
+              placeholder="Filter podcasts..."
+              required
+            />
+          </header>
+        </main>
       )}
     </div>
   );
