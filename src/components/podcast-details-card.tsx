@@ -1,4 +1,4 @@
-import useGetExtraDetails from "../utils/useGetExtraDetails";
+import useGetPodcastFeed from "../utils/useGetPodcastFeed";
 import Card from "./card";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const PodcastDetailsCard = ({ feedUrl, lowResCover, title, artist }: Props) => {
-  const { data } = useGetExtraDetails(feedUrl);
+  const { data } = useGetPodcastFeed(feedUrl);
 
   return (
     <Card className="w-80 lg:w-72">
