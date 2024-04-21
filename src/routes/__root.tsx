@@ -1,4 +1,4 @@
-import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
+import { createRootRoute, Link, MatchRoute, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 
 export const Route = createRootRoute({
@@ -18,6 +18,12 @@ function RootComponent() {
           >
             Podcaster
           </Link>
+          <MatchRoute to="/podcast/$podcastId" pending>
+            <p>LOADING PODCAST</p>
+          </MatchRoute>
+          <MatchRoute to="/podcast/$podcastId/episode/$episodeId" pending>
+            <p>LOADING EPISODE</p>
+          </MatchRoute>
         </nav>
       </div>
       <hr />
