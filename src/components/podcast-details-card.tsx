@@ -1,20 +1,23 @@
+import useGetExtraDetails from "../utils/useGetExtraDetails";
 import Card from "./card";
 
 interface Props {
+  feedUrl: string;
   lowResCover: string;
   title: string;
   artist: string;
-  description: string;
 }
 
-const PodcastDetailsCard = ({ lowResCover, title, artist, description }: Props) => {
+const PodcastDetailsCard = ({ feedUrl, lowResCover, title, artist }: Props) => {
+  const { data } = useGetExtraDetails(feedUrl);
+
   return (
-    <Card className="w-80 lg:w-60">
+    <Card className="w-80 lg:w-72">
       <div className="divide-y">
         <section className="p-4">
           <img
             className="mx-auto w-48 h-w-48 rounded-md transition-all"
-            src={lowResCover}
+            src={data?.podcastCover || lowResCover}
             alt={`Cover image for the podcast ${title}.`}
           />
         </section>
@@ -26,7 +29,7 @@ const PodcastDetailsCard = ({ lowResCover, title, artist, description }: Props) 
 
         <section className="p-4">
           <p className="font-bold">Description</p>
-          <p>{description || "Loading description..."}</p>
+          <p className="break-words">{data?.podcastDescription || "Loading description..."}</p>
         </section>
       </div>
     </Card>
