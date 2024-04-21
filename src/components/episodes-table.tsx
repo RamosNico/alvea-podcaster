@@ -1,0 +1,60 @@
+import type { PodcastEpisode } from "../types";
+
+function formatDate(dateStr: string): string {
+  const date = new Date(dateStr);
+
+  return date.toLocaleDateString("en-GB"); // 'en-GB' uses day/month/year format
+}
+
+const formatDuration = (ms: number): string => {
+  const totalSeconds = Math.floor(ms / 1000);
+
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+
+  const pad = (num: number) => (num < 10 ? "0" + num : num);
+
+  return `${hours ? `${pad(hours)}:` : ""}${pad(minutes)}:${pad(seconds)}`;
+};
+
+const EpisodesTable = ({ episodes }: { episodes: PodcastEpisode[] }) => {
+  return (
+    <div className="overflow-x-auto shadow-md sm:rounded-lg">
+      <table className="w-full text-left text-gray-500">
+        <thead className="text-gray-700">
+          <tr>
+            <th scope="col" className="px-6 py-3">
+              Title
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Date
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Duration
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {episodes.map((e: PodcastEpisode) => (
+            <tr
+              className="odd:bg-white even:bg-gray-50 border-b"
+              key={e.episodeUrl}
+            >
+              <th
+                scope="row"
+                className="px-6 py-4 font-medium text-slate-900 whitespace-nowrap"
+              >
+                {e.trackName}
+              </th>
+              <td className="px-6 py-4">{formatDate(e.releaseDate)}</td>
+              <td className="px-6 py-4">{formatDuration(e.trackTimeMillis)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default EpisodesTable;
