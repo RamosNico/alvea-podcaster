@@ -11,7 +11,7 @@ function RootComponent() {
   return (
     <>
       <div className="p-2 flex gap-2">
-        <nav className="container mx-auto">
+        <nav className="container p-4 mx-auto">
           <Link
             to="/"
             className="font-medium text-2xl text-sky-600 hover:underline"
