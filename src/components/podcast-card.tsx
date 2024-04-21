@@ -1,10 +1,12 @@
+import { Link } from "@tanstack/react-router";
 import type { Podcast } from "../types";
 
 const PodcastCard = ({ id, name, artist, image }: Podcast) => {
   return (
     <div className="w-full max-w-xs text-center border border-gray-200 rounded-lg shadow group hover:shadow-lg hover:scale-110 transition-all">
-      <a
-        href={`podcast/${id}`}
+      <Link
+        to={`podcast/${id}`}
+        params={{ podcastId: id }}
         className="relative flex flex-col items-center w-full h-full"
       >
         <img
@@ -20,7 +22,7 @@ const PodcastCard = ({ id, name, artist, image }: Podcast) => {
             {artist}
           </span>
         </div>
-      </a>
+      </Link>
     </div>
   );
 };
