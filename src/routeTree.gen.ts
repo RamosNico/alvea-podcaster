@@ -12,6 +12,8 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
+import { Route as PodcastPodcastIdImport } from './routes/podcast/$podcastId'
+import { Route as PodcastPodcastIdEpisodeEpisodeIdImport } from './routes/podcast/$podcastId.episode.$episodeId'
 
 // Create/Update Routes
 
@@ -19,6 +21,17 @@ const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any)
+
+const PodcastPodcastIdRoute = PodcastPodcastIdImport.update({
+  path: '/podcast/$podcastId',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PodcastPodcastIdEpisodeEpisodeIdRoute =
+  PodcastPodcastIdEpisodeEpisodeIdImport.update({
+    path: '/episode/$episodeId',
+    getParentRoute: () => PodcastPodcastIdRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -28,11 +41,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/podcast/$podcastId': {
+      preLoaderRoute: typeof PodcastPodcastIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/podcast/$podcastId/episode/$episodeId': {
+      preLoaderRoute: typeof PodcastPodcastIdEpisodeEpisodeIdImport
+      parentRoute: typeof PodcastPodcastIdImport
+    }
   }
 }
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren([IndexRoute])
+export const routeTree = rootRoute.addChildren([
+  IndexRoute,
+  PodcastPodcastIdRoute.addChildren([PodcastPodcastIdEpisodeEpisodeIdRoute]),
+])
 
 /* prettier-ignore-end */
