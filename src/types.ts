@@ -4,3 +4,21 @@ export type Podcast = {
   artist: string;
   image: string;
 };
+
+export type PodcastDetails = {
+  id: number;
+  title: string;
+  artist: string;
+  description: string;
+  cover: string;
+  feedUrl: string;
+  totalEpisodes: number;
+  episodes: PodcastEpisode[];
+}
+export type PodcastEpisode = {
+  trackName: string;
+  releaseDate: string;
+  trackTimeMillis: number;
+  description: string;
+  episodeUrl: string;
+}
