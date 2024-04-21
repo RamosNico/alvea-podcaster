@@ -29,8 +29,8 @@ const PodcastPodcastIdRoute = PodcastPodcastIdImport.update({
 
 const PodcastPodcastIdEpisodeEpisodeIdRoute =
   PodcastPodcastIdEpisodeEpisodeIdImport.update({
-    path: '/episode/$episodeId',
-    getParentRoute: () => PodcastPodcastIdRoute,
+    path: '/podcast/$podcastId/episode/$episodeId',
+    getParentRoute: () => rootRoute,
   } as any)
 
 // Populate the FileRoutesByPath interface
