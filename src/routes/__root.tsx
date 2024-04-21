@@ -1,4 +1,10 @@
-import { createRootRoute, Link, MatchRoute, Outlet } from "@tanstack/react-router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  createRootRoute,
+  Link,
+  MatchRoute,
+  Outlet,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 
 export const Route = createRootRoute({
@@ -7,9 +13,10 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
+  const queryClient = new QueryClient();
 
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <div className="p-2 flex gap-2">
         <nav className="container p-4 mx-auto">
           <Link
@@ -29,7 +36,7 @@ function RootComponent() {
       <hr />
       <Outlet />
       <TanStackRouterDevtools position="bottom-right" />
-    </>
+    </QueryClientProvider>
   );
 }
 
