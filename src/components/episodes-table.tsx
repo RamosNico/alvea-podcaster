@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import type { PodcastEpisode } from "../types";
 
 function formatDate(dateStr: string): string {
@@ -18,7 +19,12 @@ const formatDuration = (ms: number): string => {
   return `${hours ? `${pad(hours)}:` : ""}${pad(minutes)}:${pad(seconds)}`;
 };
 
-const EpisodesTable = ({ episodes }: { episodes: PodcastEpisode[] }) => {
+interface Props {
+  podcastId: number;
+  episodes: PodcastEpisode[];
+}
+
+const EpisodesTable = ({ podcastId, episodes }: Props) => {
   return (
     <div className="overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-left text-gray-500">
@@ -45,7 +51,16 @@ const EpisodesTable = ({ episodes }: { episodes: PodcastEpisode[] }) => {
                 scope="row"
                 className="px-6 py-4 font-medium text-slate-900 whitespace-nowrap"
               >
-                {e.trackName}
+                <Link
+                  to="/podcast/$podcastId/episode/$episodeId"
+                  params={{
+                    podcastId: podcastId.toString(),
+                    episodeId: e.trackId.toString(),
+                  }}
+                  className="text-sky-600 hover:text-sky-700 hover:underline transition-all"
+                >
+                  {e.trackName}
+                </Link>
               </th>
               <td className="px-6 py-4">{formatDate(e.releaseDate)}</td>
               <td className="px-6 py-4">{formatDuration(e.trackTimeMillis)}</td>
