@@ -11,6 +11,7 @@ export type PodcastDetails = {
   artist: string;
   description: string;
   cover: string;
+  lowResCover: string;
   feedUrl: string;
   totalEpisodes: number;
   episodes: PodcastEpisode[];
