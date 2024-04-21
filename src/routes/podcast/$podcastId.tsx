@@ -40,7 +40,7 @@ function PodcastPage() {
         </Card>
 
         <Card className="w-full p-4">
-          <EpisodesTable episodes={data.episodes} />
+          <EpisodesTable podcastId={data.id} episodes={data.episodes} />
         </Card>
       </section>
     </main>
