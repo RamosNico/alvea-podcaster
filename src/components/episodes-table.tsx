@@ -28,7 +28,7 @@ const EpisodesTable = ({ podcastId, episodes }: Props) => {
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-left text-gray-500">
-        <thead className="text-gray-700">
+        <thead className="text-gray-700 border-b-2">
           <tr>
             <th scope="col" className="px-6 py-3">
               Title
@@ -44,7 +44,7 @@ const EpisodesTable = ({ podcastId, episodes }: Props) => {
         <tbody>
           {episodes.map((e: PodcastEpisode) => (
             <tr
-              className="odd:bg-white even:bg-gray-50 border-b"
+              className="even:bg-white odd:bg-gray-50 border-b"
               key={e.episodeUrl}
             >
               <th
