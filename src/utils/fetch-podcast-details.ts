@@ -35,6 +35,7 @@ const fetchPodcastDetails = async (podcastId: string) => {
       feedUrl: podcastInfo.feedUrl,
       totalEpisodes: podcastInfo.trackCount,
       episodes: episodes.map((episode: PodcastEpisode) => ({
+        trackId: episode.trackId,
         trackName: episode.trackName,
         releaseDate: episode.releaseDate,
         trackTimeMillis: episode.trackTimeMillis,
