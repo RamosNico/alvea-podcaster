@@ -9,7 +9,7 @@ interface Props {
 
 const PodcastDetailsCard = ({ lowResCover, title, artist, description }: Props) => {
   return (
-    <Card className="w-full max-w-xs">
+    <Card className="w-80 lg:w-60">
       <div className="divide-y">
         <section className="p-4">
           <img
@@ -26,7 +26,7 @@ const PodcastDetailsCard = ({ lowResCover, title, artist, description }: Props) 
 
         <section className="p-4">
           <p className="font-bold">Description</p>
-          <p>{description}</p>
+          <p>{description || "Loading description..."}</p>
         </section>
       </div>
     </Card>
