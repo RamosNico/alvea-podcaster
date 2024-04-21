@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 
 export const Route = createFileRoute("/")({
   component: Home,
+  staleTime: 120_000
 });
 
 function Home() {
