@@ -26,10 +26,10 @@ function EpisodePage() {
     <main className="pt-8 px-4 container mx-auto max-lg:space-y-8 lg:flex gap-x-4 xl:gap-x-12">
       <section className="flex justify-center lg:block w-full">
         <PodcastDetailsCard
+          feedUrl={`https://api.allorigins.win/get?url=${encodeURIComponent(data.feedUrl)}`}
           lowResCover={data.lowResCover}
           title={data.title}
           artist={data.artist}
-          description={data.description}
         />
       </section>
 
