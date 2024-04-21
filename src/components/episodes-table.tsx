@@ -26,7 +26,7 @@ interface Props {
 
 const EpisodesTable = ({ podcastId, episodes }: Props) => {
   return (
-    <div className="overflow-x-auto shadow-md sm:rounded-lg">
+    <div className="overflow-x-auto">
       <table className="w-full text-left text-gray-500">
         <thead className="text-gray-700">
           <tr>
