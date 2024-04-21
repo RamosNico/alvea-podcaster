@@ -17,6 +17,7 @@ export type PodcastDetails = {
   episodes: PodcastEpisode[];
 }
 export type PodcastEpisode = {
+  trackId: number;
   trackName: string;
   releaseDate: string;
   trackTimeMillis: number;
