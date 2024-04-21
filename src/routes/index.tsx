@@ -1,16 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import useGetPodcasts from "../utils/useGetPodcasts";
 import PodcastCard from "../components/podcast-card";
-import { useMemo, useState } from "react";
+import { useDebounce } from 'use-debounce';
+import { useEffect, useMemo, useState } from "react";
 
 export const Route = createFileRoute("/")({
   component: Home,
-  staleTime: 120_000
+  staleTime: 120_000,
 });
 
 function Home() {
   let params = new URLSearchParams(document.location.search);
   const [filter, setFilter] = useState(params.get("filter") || "");
+  const [debouncedFilter] = useDebounce(filter, 100);
   const { data, isLoading, error } = useGetPodcasts();
 
   const results = useMemo(() => {
@@ -20,22 +22,19 @@ function Home() {
 
     const normalizedFilter = filter.trim().toLowerCase();
     return data?.filter((d) => d.name.toLowerCase().includes(normalizedFilter));
-  }, [data, filter]);
+  }, [data, debouncedFilter]);
 
-  const handleFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newFilter = e.target.value;
-    setFilter(newFilter);
-
+  useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    if (newFilter) {
-      params.set("filter", newFilter);
+    if (debouncedFilter) {
+      params.set("filter", debouncedFilter);
       // Update the URL in the browser without reloading the page
-      window.history.pushState({}, '', `${window.location.pathname}?${params.toString()}`);
+      window.history.pushState({}, "", `${window.location.pathname}?${params.toString()}`);
     } else {
       params.delete("filter");
-      window.history.pushState({}, '', `${window.location.pathname}`);
-  }
-};
+      window.history.pushState({}, "", `${window.location.pathname}`);
+    }
+  }, [debouncedFilter])
 
   return (
     <div className="container mx-auto">
@@ -61,7 +60,7 @@ function Home() {
               type="text"
               id="filter"
               value={filter}
-              onChange={handleFilter}
+              onChange={(e) => setFilter(e.target.value)}
               className="w-full max-w-xs px-2.5 py-2 border border-gray-300 text-slate-900 text-sm rounded-md focus:ring-sky-500 focus:border-sky-500"
               placeholder="Filter podcasts..."
               required
