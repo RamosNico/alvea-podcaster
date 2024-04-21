@@ -1,5 +1,6 @@
-import useGetPodcastFeed from "../utils/useGetPodcastFeed";
+import fetchXML from "../utils/fetch-xml";
 import Card from "./card";
+import { useQuery}  from "@tanstack/react-query";
 
 interface Props {
   feedUrl: string;
@@ -9,7 +10,18 @@ interface Props {
 }
 
 const PodcastDetailsCard = ({ feedUrl, lowResCover, title, artist }: Props) => {
-  const { data } = useGetPodcastFeed(feedUrl);
+  const { data } = useQuery({queryKey: [feedUrl], queryFn: async () => {
+    try {
+      const feedData: any = await fetchXML(feedUrl)
+
+      return {
+        podcastCover: feedData.rss.channel.image.url,
+        podcastDescription: feedData.rss.channel.description,
+      };
+    } catch (error: any) {
+      console.error("Something went wrong while fetching the feedUrl.")
+    }
+  }})
 
   return (
     <Card className="w-80 lg:w-72">
