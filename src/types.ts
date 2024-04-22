@@ -9,7 +9,7 @@ export type PodcastDetails = {
   id: number;
   title: string;
   artist: string;
-  description: string;
+  description?: string;
   cover?: string;
   lowResCover: string;
   feedUrl: string;
