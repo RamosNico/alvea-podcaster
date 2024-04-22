@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
 import type { Podcast } from "../types";
 
+const checkLastFetch = (lastFetch: string | null) => {
+  if(!lastFetch) return false;
+  const now = new Date().getTime();
+  const oneDay = 24 * 60 * 60 * 1000;
+
+  return now - +lastFetch < oneDay;
+};
+
 const useGetPodcasts = () => {
   const [data, setData] = useState<Podcast[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -8,6 +16,17 @@ const useGetPodcasts = () => {
 
   const fetchData = async () => {
     setIsLoading(true);
+
+    const localPodcasts = localStorage.getItem("podcasts");
+    const lastFetch = localStorage.getItem("lastFetch");
+
+    if (localPodcasts && checkLastFetch(lastFetch)) {
+      setIsLoading(false);
+      return setData(JSON.parse(localPodcasts));
+    } else {
+      localStorage.removeItem("podcasts");
+      localStorage.removeItem("lastFetch");
+    };
 
     try {
       const response = await fetch(
@@ -23,10 +42,13 @@ const useGetPodcasts = () => {
         artist: d["im:artist"].label,
         name: d.title.label,
         // Use the latest image of the array as it seems to always be the highest quality
-        image: d["im:image"][d["im:image"].length - 1].label
+        image: d["im:image"][d["im:image"].length - 1].label,
       }));
 
       setData(podcasts);
+
+      localStorage.setItem("podcasts", JSON.stringify(podcasts));
+      localStorage.setItem("lastFetch", new Date().getTime().toString());
     } catch (error: any) {
       setError(error.message);
     } finally {
