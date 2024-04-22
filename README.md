@@ -12,6 +12,10 @@ Podcaster is a dynamic web application built with modern web technologies includ
 - [**TanStack Query**: Handles server state and caching.](https://tanstack.com/query/latest)
 - [**TailwindCSS**: Provides utility-first CSS for rapid UI development.](https://tailwindcss.com/)
 
+## Check it deployed
+
+You can [click here](https://podcaster-inditex.vercel.app/) to access to the deploy from Vercel in order to quickly have a look at the project.
+
 ## Local Development
 
 To start the project locally:
