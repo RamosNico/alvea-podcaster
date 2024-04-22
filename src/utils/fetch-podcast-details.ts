@@ -21,11 +21,6 @@ const fetchPodcastDetails = async (podcastId: string) => {
     const podcastInfo = results[0];
     const episodes = results.slice(1);
 
-    //! SHOULD GET THE COVER AND DESCRIPTION FROM THIS REQUEST
-    // const feedDetails = await fetchFeedDetails(
-    //   `https://api.allorigins.win/get?url=${encodeURIComponent(podcastInfo.feedUrl)}`
-    // );
-
     const podcast: PodcastDetails = {
       id: podcastInfo.collectionId,
       title: podcastInfo.collectionName,
