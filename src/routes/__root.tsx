@@ -6,6 +6,7 @@ import {
   Outlet,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
+import Spinner from "../components/spinner";
 
 export const Route = createRootRoute({
   pendingComponent: LoadingComponent,
@@ -18,18 +19,20 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="p-2 flex gap-2">
-        <nav className="container p-4 mx-auto">
+        <nav className="navbar">
           <Link
             to="/"
             className="font-medium text-2xl text-sky-600 hover:underline"
           >
             Podcaster
           </Link>
+
           <MatchRoute to="/podcast/$podcastId" pending>
-            <p>LOADING PODCAST</p>
+            <Spinner />
           </MatchRoute>
+
           <MatchRoute to="/podcast/$podcastId/episode/$episodeId" pending>
-            <p>LOADING EPISODE</p>
+            <Spinner />
           </MatchRoute>
         </nav>
       </div>
@@ -44,14 +47,15 @@ function LoadingComponent() {
   return (
     <>
       <div className="p-2 flex gap-2">
-        <nav className="container mx-auto">
+        <nav className="navbar">
           <Link
             to="/"
             className="font-medium text-lg text-sky-600 hover:underline"
           >
-            LOADING
+            Podcaster
           </Link>
-          <p>Loading...</p>
+
+          <Spinner />
         </nav>
       </div>
       <hr />
