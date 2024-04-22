@@ -1,9 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import type { Podcast } from "../types";
+import Card from "./card";
 
 const PodcastCard = ({ id, name, artist, image }: Podcast) => {
   return (
-    <div className="w-full max-w-xs text-center border border-gray-200 rounded-lg shadow group hover:shadow-lg hover:scale-110 transition-all">
+    <Card className="w-full max-w-xs text-center rounded-lg group hover:shadow-lg hover:scale-110 transition-all">
       <Link
         to={`podcast/${id}`}
         params={{ podcastId: id }}
@@ -23,7 +24,7 @@ const PodcastCard = ({ id, name, artist, image }: Podcast) => {
           </span>
         </div>
       </Link>
-    </div>
+    </Card>
   );
 };
 
