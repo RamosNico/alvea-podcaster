@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.navbar {
+  @apply container p-4 mx-auto flex items-center justify-between
+}
