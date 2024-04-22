@@ -30,7 +30,6 @@ const fetchPodcastDetails = async (podcastId: string) => {
       id: podcastInfo.collectionId,
       title: podcastInfo.collectionName,
       artist: podcastInfo.artistName,
-      description: "To be obtained!!!",
       lowResCover: podcastInfo.artworkUrl1600 || podcastInfo.artworkUrl100,
       feedUrl: podcastInfo.feedUrl,
       totalEpisodes: podcastInfo.trackCount,
